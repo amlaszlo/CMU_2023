@@ -1,0 +1,448 @@
+
+
+#set working directory first
+
+#Needed packages
+library(rpart)
+library(caret)
+library(tidyverse)
+library(rattle)
+library(rpart.plot)
+library(RColorBrewer)
+
+
+
+data<-read.csv(file.choose())
+list(data)
+names(data)
+summary(data)
+
+
+
+#Need rpart for this.
+#Because rpart has some default parameters that prevent our tree from growing,
+#we must override these parameters by specifying minsplit and minbucket.
+#Minsplit is “the minimum number of observations that must exist in a node in order 
+#for a split to be attempted” and minbucket is “the minimum number of observations 
+#in any terminal node”.
+#Internally, rpart keeps track of something called the complexity of a tree. 
+# The complexity measure is a combination of the size of a tree and the ability of the 
+#tree to separate the classes of the target variable. If the next best split in growing 
+#a tree does not reduce the tree’s overall complexity by a certain amount, 
+#rpart will terminate the growing process. 
+
+#Setting cp to a negative amount ensures that the tree will be fully grown.
+mytree <- rpart(
+  Site_Category ~ Depth+ Pebbles+ Sand+ Silt+ Clay+ Muck+ Detritus, 
+  data = data, 
+  method = "class", 
+  control = rpart.control(minsplit = 2, minbucket = 1, cp = 0, xval = 10), 
+  parms = list(split = "gini"))
+
+mytree
+
+#The intensity of a node’s color is proportional to the value predicted at the node
+# plot mytree
+fancyRpartPlot(mytree, caption = NULL)
+
+
+par(xpd = NA)
+ #Used to avoid clipping off words
+plot(mytree)
+ #Plots the CART model made above
+text(mytree, digits=3)
+ #Adds text to the plotted CART model
+
+predicted.classes = mytree %>%
+	predict(data, type = "class")
+ #Runs each data point from the data set created above through the CART model
+   #and assigns the data point to one of the available categories
+head(predicted.classes)
+ #Shows the first few data points from the data set and their assigned 
+   #category
+mean(predicted.classes == data$Site_Category)
+ #Gives the percentage of data points whose category was correctly identified by 
+   #the CART model
+
+#When rpart grows a tree it performs 10-fold cross validation on the data. 
+#Use printcp() to see the cross validation results.
+#The rel error of each iteration of the tree is the fraction of mislabeled 
+#elements in the iteration relative to the fraction of mislabeled elements in the root. 
+#The cross validation error rates and standard deviations are displayed in the 
+#columns xerror and xstd respectively.
+
+printcp(mytree)
+
+
+
+
+#run model a second time
+mytree2 <- rpart(
+  Site_Category ~ Depth+ Pebbles+ Sand+ Silt+ Clay+ Muck+ Detritus, 
+  data = data, 
+  method = "class", 
+  control = rpart.control(minsplit = 2, minbucket = 1, cp = 0, xval = 10), 
+  parms = list(split = "gini"))
+
+mytree2
+
+#The intensity of a node’s color is proportional to the value predicted at the node
+# plot mytree
+fancyRpartPlot(mytree2, caption = NULL)
+
+
+par(xpd = NA)
+ #Used to avoid clipping off words
+plot(mytree2)
+ #Plots the CART model made above
+text(mytree2, digits=3)
+ #Adds text to the plotted CART model
+
+predicted.classes = mytree2 %>%
+	predict(data, type = "class")
+ 
+head(predicted.classes)
+
+mean(predicted.classes == data$Site_Category)
+ 
+printcp(mytree2)
+
+
+#run model a third time
+mytree3 <- rpart(
+  Site_Category ~ Depth+ Pebbles+ Sand+ Silt+ Clay+ Muck+ Detritus, 
+  data = data, 
+  method = "class", 
+  control = rpart.control(minsplit = 2, minbucket = 1, cp = 0, xval = 10), 
+  parms = list(split = "gini"))
+
+mytree3
+
+#The intensity of a node’s color is proportional to the value predicted at the node
+# plot mytree
+fancyRpartPlot(mytree3, caption = NULL)
+
+
+par(xpd = NA)
+ #Used to avoid clipping off words
+plot(mytree3)
+ #Plots the CART model made above
+text(mytree3, digits=3)
+ #Adds text to the plotted CART model
+
+predicted.classes = mytree3 %>%
+	predict(data, type = "class")
+ 
+head(predicted.classes)
+
+mean(predicted.classes == data$Site_Category)
+ 
+printcp(mytree3)
+
+#run model 4th time
+mytree4 <- rpart(
+  Site_Category ~ Depth+ Pebbles+ Sand+ Silt+ Clay+ Muck+ Detritus, 
+  data = data, 
+  method = "class", 
+  control = rpart.control(minsplit = 2, minbucket = 1, cp = 0, xval = 10), 
+  parms = list(split = "gini"))
+
+mytree4
+
+#The intensity of a node’s color is proportional to the value predicted at the node
+# plot mytree
+fancyRpartPlot(mytree4, caption = NULL)
+
+
+par(xpd = NA)
+ #Used to avoid clipping off words
+plot(mytree4)
+ #Plots the CART model made above
+text(mytree4, digits=3)
+ #Adds text to the plotted CART model
+
+predicted.classes = mytree4 %>%
+	predict(data, type = "class")
+ 
+head(predicted.classes)
+
+mean(predicted.classes == data$Site_Category)
+ 
+printcp(mytree4)
+
+#run model 5th time
+mytree5 <- rpart(
+  Site_Category ~ Depth+ Pebbles+ Sand+ Silt+ Clay+ Muck+ Detritus, 
+  data = data, 
+  method = "class", 
+  control = rpart.control(minsplit = 2, minbucket = 1, cp = 0, xval = 10), 
+  parms = list(split = "gini"))
+
+mytree5
+
+#The intensity of a node’s color is proportional to the value predicted at the node
+# plot mytree
+fancyRpartPlot(mytree5, caption = NULL)
+
+
+par(xpd = NA)
+ #Used to avoid clipping off words
+plot(mytree5)
+ #Plots the CART model made above
+text(mytree5, digits=3)
+ #Adds text to the plotted CART model
+
+predicted.classes = mytree5 %>%
+	predict(data, type = "class")
+ 
+head(predicted.classes)
+
+mean(predicted.classes == data$Site_Category)
+ 
+printcp(mytree5)
+
+
+#run model 6th time
+mytree6 <- rpart(
+  Site_Category ~ Depth+ Pebbles+ Sand+ Silt+ Clay+ Muck+ Detritus, 
+  data = data, 
+  method = "class", 
+  control = rpart.control(minsplit = 2, minbucket = 1, cp = 0, xval = 10), 
+  parms = list(split = "gini"))
+
+mytree6
+
+#The intensity of a node’s color is proportional to the value predicted at the node
+# plot mytree
+fancyRpartPlot(mytree6, caption = NULL)
+
+
+par(xpd = NA)
+ #Used to avoid clipping off words
+plot(mytree6)
+ #Plots the CART model made above
+text(mytree6, digits=3)
+ #Adds text to the plotted CART model
+
+predicted.classes = mytree6 %>%
+	predict(data, type = "class")
+ 
+head(predicted.classes)
+
+mean(predicted.classes == data$Site_Category)
+ 
+printcp(mytree6)
+
+
+#run model 7th time
+mytree7 <- rpart(
+  Site_Category ~ Depth+ Pebbles+ Sand+ Silt+ Clay+ Muck+ Detritus, 
+  data = data, 
+  method = "class", 
+  control = rpart.control(minsplit = 2, minbucket = 1, cp = 0, xval = 10), 
+  parms = list(split = "gini"))
+
+mytree7
+
+#The intensity of a node’s color is proportional to the value predicted at the node
+# plot mytree
+fancyRpartPlot(mytree7, caption = NULL)
+
+
+par(xpd = NA)
+ #Used to avoid clipping off words
+plot(mytree7)
+ #Plots the CART model made above
+text(mytree7, digits=3)
+ #Adds text to the plotted CART model
+
+predicted.classes = mytree7 %>%
+	predict(data, type = "class")
+ 
+head(predicted.classes)
+
+mean(predicted.classes == data$Site_Category)
+ 
+printcp(mytree7)
+
+#run model 8th time
+mytree8 <- rpart(
+  Site_Category ~ Depth+ Pebbles+ Sand+ Silt+ Clay+ Muck+ Detritus, 
+  data = data, 
+  method = "class", 
+  control = rpart.control(minsplit = 2, minbucket = 1, cp = 0, xval = 10), 
+  parms = list(split = "gini"))
+
+mytree8
+
+#The intensity of a node’s color is proportional to the value predicted at the node
+# plot mytree
+fancyRpartPlot(mytree8, caption = NULL)
+
+
+par(xpd = NA)
+ #Used to avoid clipping off words
+plot(mytree8)
+ #Plots the CART model made above
+text(mytree8, digits=3)
+ #Adds text to the plotted CART model
+
+predicted.classes = mytree8 %>%
+	predict(data, type = "class")
+ 
+head(predicted.classes)
+
+mean(predicted.classes == data$Site_Category)
+ 
+printcp(mytree8)
+
+#run model 9th time
+mytree9 <- rpart(
+  Site_Category ~ Depth+ Pebbles+ Sand+ Silt+ Clay+ Muck+ Detritus, 
+  data = data, 
+  method = "class", 
+  control = rpart.control(minsplit = 2, minbucket = 1, cp = 0, xval = 10), 
+  parms = list(split = "gini"))
+
+mytree9
+
+#The intensity of a node’s color is proportional to the value predicted at the node
+# plot mytree
+fancyRpartPlot(mytree9, caption = NULL)
+
+
+par(xpd = NA)
+ #Used to avoid clipping off words
+plot(mytree9)
+ #Plots the CART model made above
+text(mytree9, digits=3)
+ #Adds text to the plotted CART model
+
+predicted.classes = mytree9 %>%
+	predict(data, type = "class")
+ 
+head(predicted.classes)
+
+mean(predicted.classes == data$Site_Category)
+ 
+printcp(mytree9)
+
+#run model 10th time
+mytree10 <- rpart(
+  Site_Category ~ Depth+ Pebbles+ Sand+ Silt+ Clay+ Muck+ Detritus, 
+  data = data, 
+  method = "class", 
+  control = rpart.control(minsplit = 2, minbucket = 1, cp = 0, xval = 10), 
+  parms = list(split = "gini"))
+
+mytree10
+
+#The intensity of a node’s color is proportional to the value predicted at the node
+# plot mytree
+fancyRpartPlot(mytree10, caption = NULL)
+
+
+par(xpd = NA)
+ #Used to avoid clipping off words
+plot(mytree10)
+ #Plots the CART model made above
+text(mytree10, digits=3)
+ #Adds text to the plotted CART model
+
+predicted.classes = mytree10 %>%
+	predict(data, type = "class")
+ 
+head(predicted.classes)
+
+mean(predicted.classes == data$Site_Category)
+ 
+printcp(mytree10)
+
+
+
+#lowest xerror with most parsimonious tree after 10 model runs is the cp value you want to use to prune
+
+mytreepruned <- prune(mytree, cp = 0.047619)
+
+mytreepruned
+
+fancyRpartPlot(mytreepruned)
+#or with a title
+fancyRpartPlot(mytreepruned, caption = NULL, main = "Pruned Classification Tree of SecSma")
+#or to add "yes/no" to every split (http://www.milbo.org/rpart-plot/prp.pdf)
+fancyRpartPlot(mytreepruned, caption = NULL, main = "Pruned Classification Tree of SecSma", yesno=2)
+
+
+par(xpd = NA)
+ #Used to avoid clipping off words
+plot(mytreepruned)
+ #Plots the CART model made above
+text(mytreepruned, digits=3)
+ #Adds text to the plotted CART model
+
+
+#You can view the importance of each variable in the model by referencing the 
+#variable.importance attribute of the resulting rpart object. From the rpart 
+#documentation, “An overall measure of variable importance is the sum of the 
+#goodness of split measures for each split for which it was the primary variable…”
+mytreepruned$variable.importance
+
+summary(mytreepruned)
+
+predicted.classes = mytreepruned %>%
+	predict(data, type = "class")
+ #Runs each data point from the data set created above through the CART model
+   #and assigns the data point to one of the available categories
+head(predicted.classes)
+ #Shows the first few data points from the data set and their assigned 
+   #category
+mean(predicted.classes == data$Site_Category)
+ #Gives the percentage of data points whose category was correctly identified by 
+   #the CART model
+
+
+#from here down is chicken scratch that needs more research/fine tuning
+#need to research the below more
+preds_cart <- bind_cols(
+   predict(mytreepruned, newdata = data, type = "prob"),
+   predicted = predict(mytreepruned, newdata = data, type = "class"),
+   actual = data$Site_Category)
+
+#confusion matrix
+table(preds_cart$predicted, preds_cart$actual)
+
+#make a table
+table1=table(preds_cart$predicted, preds_cart$actual)
+
+#or use 
+mytreepruned_pred = predict(mytreepruned, type="class")
+table(mytreepruned_pred)
+#confusion matrix
+table(mytreepruned_pred, data$Site_Category)
+
+#make a table
+table2=table(mytreepruned_pred, data$Site_Category)
+
+#use for statistical summary calculations and output
+confusionMatrix(table1)
+
+#then save as cm4 (confusion matrix model 4)
+cm4=confusionMatrix(table1)
+
+
+library(ROCR)
+library(pROC)
+#we want numeric predictions (probabilities)
+prediction <- predict(mytreepruned, data, type = "prob")
+#we want 4 columns because we have 4 factors (a,b,c,d)
+ROC_pruned <- multiclass.roc(data$Site_Category, prediction[,4])
+
+ROC_auc <- auc(ROC_pruned)
+
+
+roc.multi <- multiclass.roc(data$Site_Category, prediction[,4])
+auc(roc.multi)
+
+rs <- roc.multi[['rocs']]
+plot.roc(rs[[1]])
+sapply(2:length(rs),function(i) lines.roc(rs[[i]],col=i))

@@ -1,0 +1,448 @@
+#Needed packages
+library(rpart)
+library(caret)
+library(tidyverse)
+library(rattle)
+library(rpart.plot)
+library(RColorBrewer)
+
+data<-read.csv(file.choose())
+list(data)
+names(data)
+summary(data)
+
+#data distribution
+prop.table(table(data$Site_Category))
+
+#run model 
+mytree <- rpart(
+  Site_Category ~ Depth+ Pebbles+ Sand+ Silt+ Clay+ Muck+ Detritus, 
+  data = data, 
+  method = "class", 
+  control = rpart.control(minsplit = 2, minbucket = 1, cp = 0, xval = 10),
+  parms = list(split = "gini"))
+
+mytree
+
+#use this
+par(xpd = NA)
+ #Used to avoid clipping off words
+plot(mytree)
+ #Plots the CART model made above
+text(mytree, digits=3)
+ #Adds text to the plotted CART model
+
+predicted.classes = mytree %>%
+	predict(data, type = "class")
+ #Runs each data point from the data set 
+   #and assigns the data point to one of the available categories
+head(predicted.classes)
+ #Shows the first few data points from the data set and their assigned 
+   #category
+mean(predicted.classes == data$Site_Category)
+ #Gives the percentage of data points whose category was correctly identified by 
+   #the CART model
+
+printcp(mytree)
+
+#run model 2nd time
+mytree2 <- rpart(
+  Site_Category ~ Depth+ Pebbles+ Sand+ Silt+ Clay+ Muck+ Detritus, 
+  data = data, 
+  method = "class", 
+  control = rpart.control(minsplit = 2, minbucket = 1, cp = 0, xval = 10),
+  parms = list(split = "gini"))
+
+mytree2
+
+#use this
+par(xpd = NA)
+ #Used to avoid clipping off words
+plot(mytree2)
+ #Plots the CART model made above
+text(mytree2, digits=3)
+ #Adds text to the plotted CART model
+
+predicted.classes = mytree2 %>%
+	predict(data, type = "class")
+ #Runs each data point from the data set 
+   #and assigns the data point to one of the available categories
+head(predicted.classes)
+ #Shows the first few data points from the data set and their assigned 
+   #category
+mean(predicted.classes == data$Site_Category)
+ #Gives the percentage of data points whose category was correctly identified by 
+   #the CART model
+
+printcp(mytree2)
+
+#run model 3rd time
+mytree3 <- rpart(
+  Site_Category ~ Depth+ Pebbles+ Sand+ Silt+ Clay+ Muck+ Detritus, 
+  data = data, 
+  method = "class", 
+  control = rpart.control(minsplit = 2, minbucket = 1, cp = 0, xval = 10),
+  parms = list(split = "gini"))
+
+mytree3
+
+#use this
+par(xpd = NA)
+ #Used to avoid clipping off words
+plot(mytree3)
+ #Plots the CART model made above
+text(mytree3, digits=3)
+ #Adds text to the plotted CART model
+
+predicted.classes = mytree3 %>%
+	predict(data, type = "class")
+ #Runs each data point from the data set 
+   #and assigns the data point to one of the available categories
+head(predicted.classes)
+ #Shows the first few data points from the data set and their assigned 
+   #category
+mean(predicted.classes == data$Site_Category)
+ #Gives the percentage of data points whose category was correctly identified by 
+   #the CART model
+
+printcp(mytree3)
+
+#run model 4th time
+mytree4 <- rpart(
+  Site_Category ~ Depth+ Pebbles+ Sand+ Silt+ Clay+ Muck+ Detritus, 
+  data = data, 
+  method = "class", 
+  control = rpart.control(minsplit = 2, minbucket = 1, cp = 0, xval = 10),
+  parms = list(split = "gini"))
+
+mytree4
+
+#use this
+par(xpd = NA)
+ #Used to avoid clipping off words
+plot(mytree4)
+ #Plots the CART model made above
+text(mytree4, digits=3)
+ #Adds text to the plotted CART model
+
+predicted.classes = mytree4 %>%
+	predict(data, type = "class")
+ #Runs each data point from the data set 
+   #and assigns the data point to one of the available categories
+head(predicted.classes)
+ #Shows the first few data points from the data set and their assigned 
+   #category
+mean(predicted.classes == data$Site_Category)
+ #Gives the percentage of data points whose category was correctly identified by 
+   #the CART model
+
+printcp(mytree4)
+
+#run model 5th time
+mytree5 <- rpart(
+  Site_Category ~ Depth+ Pebbles+ Sand+ Silt+ Clay+ Muck+ Detritus, 
+  data = data, 
+  method = "class", 
+  control = rpart.control(minsplit = 2, minbucket = 1, cp = 0, xval = 10),
+  parms = list(split = "gini"))
+
+mytree5
+
+#use this
+par(xpd = NA)
+ #Used to avoid clipping off words
+plot(mytree5)
+ #Plots the CART model made above
+text(mytree5, digits=3)
+ #Adds text to the plotted CART model
+
+predicted.classes = mytree5 %>%
+	predict(data, type = "class")
+ #Runs each data point from the data set 
+   #and assigns the data point to one of the available categories
+head(predicted.classes)
+ #Shows the first few data points from the data set and their assigned 
+   #category
+mean(predicted.classes == data$Site_Category)
+ #Gives the percentage of data points whose category was correctly identified by 
+   #the CART model
+
+printcp(mytree5)
+
+#run model 6th time
+mytree6 <- rpart(
+  Site_Category ~ Depth+ Pebbles+ Sand+ Silt+ Clay+ Muck+ Detritus, 
+  data = data, 
+  method = "class", 
+  control = rpart.control(minsplit = 2, minbucket = 1, cp = 0, xval = 10),
+  parms = list(split = "gini"))
+
+mytree6
+
+#use this
+par(xpd = NA)
+ #Used to avoid clipping off words
+plot(mytree6)
+ #Plots the CART model made above
+text(mytree6, digits=3)
+ #Adds text to the plotted CART model
+
+predicted.classes = mytree6 %>%
+	predict(data, type = "class")
+ #Runs each data point from the data set 
+   #and assigns the data point to one of the available categories
+head(predicted.classes)
+ #Shows the first few data points from the data set and their assigned 
+   #category
+mean(predicted.classes == data$Site_Category)
+ #Gives the percentage of data points whose category was correctly identified by 
+   #the CART model
+
+printcp(mytree6)
+
+
+#run model 7th time
+mytree7 <- rpart(
+  Site_Category ~ Depth+ Pebbles+ Sand+ Silt+ Clay+ Muck+ Detritus, 
+  data = data, 
+  method = "class", 
+  control = rpart.control(minsplit = 2, minbucket = 1, cp = 0, xval = 10),
+  parms = list(split = "gini"))
+
+mytree7
+
+#use this
+par(xpd = NA)
+ #Used to avoid clipping off words
+plot(mytree7)
+ #Plots the CART model made above
+text(mytree7, digits=3)
+ #Adds text to the plotted CART model
+
+predicted.classes = mytree7 %>%
+	predict(data, type = "class")
+ #Runs each data point from the data set 
+   #and assigns the data point to one of the available categories
+head(predicted.classes)
+ #Shows the first few data points from the data set and their assigned 
+   #category
+mean(predicted.classes == data$Site_Category)
+ #Gives the percentage of data points whose category was correctly identified by 
+   #the CART model
+
+printcp(mytree7)
+
+#run model 8th time
+mytree8 <- rpart(
+  Site_Category ~ Depth+ Pebbles+ Sand+ Silt+ Clay+ Muck+ Detritus, 
+  data = data, 
+  method = "class", 
+  control = rpart.control(minsplit = 2, minbucket = 1, cp = 0, xval = 10),
+  parms = list(split = "gini"))
+
+mytree8
+
+#use this
+par(xpd = NA)
+ #Used to avoid clipping off words
+plot(mytree8)
+ #Plots the CART model made above
+text(mytree8, digits=3)
+ #Adds text to the plotted CART model
+
+predicted.classes = mytree8 %>%
+	predict(data, type = "class")
+ #Runs each data point from the data set 
+   #and assigns the data point to one of the available categories
+head(predicted.classes)
+ #Shows the first few data points from the data set and their assigned 
+   #category
+mean(predicted.classes == data$Site_Category)
+ #Gives the percentage of data points whose category was correctly identified by 
+   #the CART model
+
+printcp(mytree8)
+
+#run model 9th time
+mytree9 <- rpart(
+  Site_Category ~ Depth+ Pebbles+ Sand+ Silt+ Clay+ Muck+ Detritus, 
+  data = data, 
+  method = "class", 
+  control = rpart.control(minsplit = 2, minbucket = 1, cp = 0, xval = 10),
+  parms = list(split = "gini"))
+
+mytree9
+
+#use this
+par(xpd = NA)
+ #Used to avoid clipping off words
+plot(mytree9)
+ #Plots the CART model made above
+text(mytree9, digits=3)
+ #Adds text to the plotted CART model
+
+predicted.classes = mytree9 %>%
+	predict(data, type = "class")
+ #Runs each data point from the data set 
+   #and assigns the data point to one of the available categories
+head(predicted.classes)
+ #Shows the first few data points from the data set and their assigned 
+   #category
+mean(predicted.classes == data$Site_Category)
+ #Gives the percentage of data points whose category was correctly identified by 
+   #the CART model
+
+printcp(mytree9)
+
+
+#run model 10th time
+mytree10 <- rpart(
+  Site_Category ~ Depth+ Pebbles+ Sand+ Silt+ Clay+ Muck+ Detritus, 
+  data = data, 
+  method = "class", 
+  control = rpart.control(minsplit = 2, minbucket = 1, cp = 0, xval = 10),
+  parms = list(split = "gini"))
+
+mytree10
+
+#use this
+par(xpd = NA)
+ #Used to avoid clipping off words
+plot(mytree10)
+ #Plots the CART model made above
+text(mytree10, digits=3)
+ #Adds text to the plotted CART model
+
+predicted.classes = mytree10 %>%
+	predict(data, type = "class")
+ #Runs each data point from the data set 
+   #and assigns the data point to one of the available categories
+head(predicted.classes)
+ #Shows the first few data points from the data set and their assigned 
+   #category
+mean(predicted.classes == data$Site_Category)
+ #Gives the percentage of data points whose category was correctly identified by 
+   #the CART model
+
+printcp(mytree10)
+
+
+#look at all 10 CP tables and determine the best CP value for each of the 10 models (the CP value associated with the 
+#lowest xerror (cross-validation error) and most parsimonious tree (lowest nsplit value)
+#then choose your CP value based on the predominant 'CP winner value' out of all 10 model runs
+
+mytreepruned <- prune(mytree, cp = 0.090909)
+
+mytreepruned
+
+#You can view the importance of each variable in the model by referencing the 
+#variable.importance attribute of the resulting rpart object. From the rpart 
+#documentation, “An overall measure of variable importance is the sum of the 
+#goodness of split measures for each split for which it was the primary variable…”
+mytreepruned$variable.importance
+
+summary(mytreepruned)
+
+#to plot (need rpart.plot, rattle, and RColorBrewer:
+fancyRpartPlot(mytreepruned, caption = NULL, yesno=2)
+
+#or use this
+par(xpd = NA)
+ #Used to avoid clipping off words
+plot(mytreepruned)
+ #Plots the CART model made above
+text(mytreepruned, digits=3)
+ #Adds text to the plotted CART model
+
+predicted.classes = mytreepruned %>%
+	predict(data, type = "class")
+ #Runs each data point from the data set 
+   #and assigns the data point to one of the available categories
+head(predicted.classes)
+ #Shows the first few data points from the data set and their assigned 
+   #category
+head.matrix(predicted.classes)
+#shows all
+mean(predicted.classes == data$Site_Category)
+ #Gives the percentage of data points whose category was correctly identified by 
+   #the CART model
+
+#now to plot ROC and calculate AUC
+
+library(ROCR)
+library(pROC)
+#we want numeric predictions (probabilities)
+prediction <- predict(mytreepruned, data, type = "prob")
+#we want two columns because we have two factors (presence, absence)
+ROC_pruned <- roc(data$Site_Category, prediction[,2])
+
+ROC_auc <- auc(ROC_pruned)
+
+print(ROC_pruned)
+
+plot(ROC_pruned, col = 1, lty = 2, main = "ROC", print.auc=TRUE, print.auc.x = 0.35, print.auc.y = 0.9)
+
+
+
+
+#need to research the below more 
+#ci stands for confidence interval
+ci(ROC_auc) 
+ci.thresholds(ROC_pruned)
+
+#ci.se computes the CI of sensitivities at given specificities
+sens.ci <- ci.se(ROC_pruned)
+plot(sens.ci, type="shape", col="lightblue")
+## Warning in plot.ci.se(sens.ci, type = "shape", col = "lightblue"): Low
+## definition shape.
+plot(sens.ci, type="bars")
+
+
+#from here down is chicken scratch that needs more research/fine tuning
+#need to research the below more
+preds_cart <- bind_cols(
+   predict(mytreepruned, newdata = data, type = "prob"),
+   predicted = predict(mytreepruned, newdata = data, type = "class"),
+   actual = data$Site_Category)
+
+#confusion matrix
+table(preds_cart$predicted, preds_cart$actual)
+
+#make a table
+table1=table(preds_cart$predicted, preds_cart$actual)
+
+#or use 
+mytreepruned_pred = predict(mytreepruned, type="class")
+table(mytreepruned_pred)
+#confusion matrix
+table(mytreepruned_pred, data$Site_Category)
+
+#make a table
+table2=table(mytreepruned_pred, data$Site_Category)
+
+#use for statistical summary calculations and output
+confusionMatrix(table1)
+
+#then save as cm1 (confusion matrix model 1)
+cm1=confusionMatrix(table1)
+
+#OR USE THIS TO PLOT
+
+
+g <- ggroc(ROC_pruned)
+g
+# with additional aesthetics:
+ggroc(ROC_pruned, alpha = 0.5, colour = "black", linetype = 2, size = 2)
+
+# You can then your own theme, etc.
+g + theme_classic() + ggtitle("ROC Curve") +
+geom_segment(aes(x = 1, xend = 0, y = 0, yend = 1), color="grey", linetype="dashed")
+
+# And change axis labels to FPR/FPR
+gl <- ggroc(ROC_pruned, legacy.axes = TRUE, colour = "black", linetype = 1, size = 2)
+gl
+gl + theme_classic() + xlab("False Positive Rate (Specificity)") + ylab("True Positive Rate (1-Sensitivity)") +
+geom_segment(aes(x = 0, xend = 1, y = 0, yend = 1), color="darkgrey", linetype="dashed", size =1)
+
+
+
